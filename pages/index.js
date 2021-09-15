@@ -16,5 +16,53 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ data }) {
+    const { info, results: defaultResults = [] } = data;
 
+    const [results, updateResults] = useState(defaultResults);
+
+    const [page, updatePage] = useState({
+        ...info,
+        current: defaultEndpoint
+    });
+    const { current } = page;
+
+    //testing functions setup in useEffect
+
+    useEffect(() => {
+
+
+        if (current === defaultEndpoint) return;
+
+
+        async function request() {
+            const res = await fetch(current)
+            const nextData = await res.json();
+
+            updatePage({
+                current,
+                ...nextData.info
+            });
+
+
+            if (!nextData.info?.prev) {
+                updateResults(nextData.results);
+                return;
+            }
+
+
+            updateResults(prev => {
+                return [
+                    ...prev,
+                    ...nextData.results
+                ]
+            });
+        }
+
+        request();
+    }, [current]);
+
+
+    return (
+        <div>This is home page</div>
+    )
 }
