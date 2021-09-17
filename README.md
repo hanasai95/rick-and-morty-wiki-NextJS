@@ -1,5 +1,5 @@
 
-This is a NextJS app thats shows all characters from the show 'Rick and Morty Wiki', it allowas user to search characters by name' and load more. 
+This is a NextJS app thats shows all characters from the show 'Rick and Morty Wiki', it allowas user to search characters by name, and load more. 
 
 
 
